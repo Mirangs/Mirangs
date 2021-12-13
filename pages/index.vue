@@ -1,10 +1,9 @@
 <template>
   <main class="main-page">
     <h1 class="main-page__title">Georgia Checklist</h1>
-    <a-button class="add-button" type="primary" @click="openItemModal"
-      >Add item</a-button
-    >
-    <a-button type="danger" @click="clearItems">Delete all</a-button>
+    <a-button class="add-button" type="primary" @click="openItemModal">
+      Add item
+    </a-button>
 
     <check-list />
   </main>
@@ -13,18 +12,20 @@
 <script>
 import { mapMutations } from 'vuex'
 import ItemModal from '@/components/ItemModal'
+import { getList } from '@/api/checkList'
 
 export default {
   name: 'IndexPage',
+  async created() {
+    const list = await getList()
+    this.setItems(list)
+  },
   methods: {
     ...mapMutations({
       setItems: 'items/SET_ITEMS',
     }),
     openItemModal() {
       this.$modal.show(ItemModal, {}, { name: 'item-modal', height: 'auto' })
-    },
-    clearItems() {
-      this.setItems([])
     },
   },
 }

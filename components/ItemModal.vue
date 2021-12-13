@@ -19,7 +19,8 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
+
 import '@/assets/scss/modal.scss'
 
 export default {
@@ -34,12 +35,12 @@ export default {
     this.$refs.input.focus()
   },
   methods: {
-    ...mapMutations({
-      addItem: 'items/ADD_ITEM',
+    ...mapActions({
+      addItem: 'items/addItem',
     }),
-    onSubmit(e) {
+    async onSubmit(e) {
       e.preventDefault()
-      this.addItem({ name: this.form.name, isChecked: false })
+      await this.addItem(this.form)
       this.$modal.hide('item-modal')
     },
     onCheckedChanged({ target }) {

@@ -3,10 +3,7 @@
     <a-list bordered :data-source="items">
       <a-list-item slot="renderItem" slot-scope="item">
         <div class="list-item">
-          <a-checkbox
-            :default-checked="item.isChecked"
-            @change="(e) => onChange(e.target.checked, item.id)"
-          />
+          <a-checkbox :checked="item.isChecked" @change="onChange(item._id)" />
           <span class="list-item__name">{{ item.name }}</span>
 
           <div class="list-item__buttons">
@@ -22,7 +19,7 @@
               type="danger"
               shape="circle"
               icon="delete"
-              @click="removeItem(item.id)"
+              @click="removeItem(item._id)"
             />
           </div>
         </div>
@@ -32,7 +29,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import EditItemModal from '@/components/EditItemModal'
 
 export default {
@@ -40,12 +37,12 @@ export default {
     ...mapState('items', ['items']),
   },
   methods: {
-    ...mapMutations({
-      removeItem: 'items/REMOVE_ITEM',
-      setItemChecked: 'items/SET_ITEM_CHECKED',
+    ...mapActions({
+      removeItem: 'items/removeItem',
+      setItemChecked: 'items/setItemChecked',
     }),
-    onChange(isChecked, itemId) {
-      this.setItemChecked({ itemId, isChecked })
+    onChange(itemId) {
+      this.setItemChecked(itemId)
     },
     openEditModal(item) {
       this.$modal.show(

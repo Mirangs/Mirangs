@@ -4,7 +4,7 @@
 
     <a-form-model :model="form" @submit="onSubmit">
       <a-form-model-item label="Id">
-        <a-input v-model="form.id" disabled />
+        <a-input v-model="form._id" disabled />
       </a-form-model-item>
 
       <a-form-model-item label="Item name">
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 import '@/assets/scss/modal.scss'
 
 export default {
@@ -51,8 +51,8 @@ export default {
     this.$refs.input.focus()
   },
   methods: {
-    ...mapMutations({
-      editItem: 'items/EDIT_ITEM',
+    ...mapActions({
+      editItem: 'items/editItem',
     }),
     onSubmit(e) {
       e.preventDefault()

@@ -11,7 +11,8 @@
     "lint:style": "stylelint \"**/*.{vue,css}\" --ignore-path .gitignore",
     "prepare": "husky install",
     "lint": "yarn lint:js && yarn lint:style",
-    "deploy": "push-dir --dir=dist --branch=main --cleanup"
+    "deploy": "push-dir --dir=dist --branch=main --cleanup",
+    "netlify": "npx netlify-cli dev"
   },
   "lint-staged": {
     "*.{js,vue}": "eslint",
@@ -19,7 +20,9 @@
   },
   "dependencies": {
     "ant-design-vue": "^1.7.6",
+    "axios": "^0.24.0",
     "core-js": "^3.15.1",
+    "mongoose": "^6.1.1",
     "nuxt": "^2.15.7",
     "vue-js-modal": "^2.0.1",
     "vuex-persistedstate": "^4.1.0"
